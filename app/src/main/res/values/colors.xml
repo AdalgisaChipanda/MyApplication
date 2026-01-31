@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fundo da tela -->
+    <color name="fundo_tela">#FAFAFA</color>
+
+    <!-- Botões -->
+    <color name="botao">#FF7043</color>             <!-- Usado nos layouts -->
+    <color name="botao_primario">#FF7043</color>    <!-- Mesma cor, alias -->
+    <color name="botao_secundario">#BDBDBD</color>
+    <color name="botao_texto">#FFFFFF</color>
+
+    <!-- Títulos e textos -->
+    <color name="titulo">#212121</color>
+    <color name="texto_secundario">#757575</color>
+
+    <!-- Campos de input / Spinner -->
+    <color name="input_fundo">#FFFFFF</color>
+    <color name="input_borda">#FF7043</color>
+
+    <!-- Cores do gráfico -->
+    <color name="grafico_baixo">#4CAF50</color>
+    <color name="grafico_medio">#FFC107</color>
+    <color name="grafico_alto">#F44336</color>
+
+    <!-- Divisores / separadores -->
+    <color name="divisor">#BDBDBD</color>
+
+    <!-- Marca / autora -->
+    <color name="marca">#9E9E9E</color>
+</resources>
+

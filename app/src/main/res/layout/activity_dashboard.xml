@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtDashboardTitulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/dashboard_titulo"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Botão Lista de Despesas -->
+    <Button
+        android:id="@+id/btnLista"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_lista"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/txtDashboardTitulo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- Botão Histórico Completo -->
+    <Button
+        android:id="@+id/btnHistoricoCompleto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_historico"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/btnLista"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Botão Resumo Mensal -->
+    <Button
+        android:id="@+id/btnResumoMensal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_resumo"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/btnHistoricoCompleto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Rodapé "Saber mais" -->
+    <TextView
+        android:id="@+id/txtMarcaRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/marca_app"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

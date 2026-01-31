@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/listaTitulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tela_lista_titulo"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Spinner meses -->
+    <Spinner
+        android:id="@+id/spinnerMesLista"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/listaTitulo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ListView limitada para não sobrepor os botões -->
+    <ListView
+        android:id="@+id/listViewDespesas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:dividerHeight="1dp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerMesLista"
+        app:layout_constraintBottom_toTopOf="@id/btnAdicionarDespesa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Total do mês -->
+    <TextView
+        android:id="@+id/txtTotalMes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/total_mes_default"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/btnAdicionarDespesa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Botão Adicionar Despesa -->
+    <Button
+        android:id="@+id/btnAdicionarDespesa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/adicionar_despesa"
+        app:layout_constraintBottom_toTopOf="@id/btnVerGrafico"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Botão Ver Gráfico -->
+    <Button
+        android:id="@+id/btnVerGrafico"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/ver_grafico"
+        app:layout_constraintBottom_toTopOf="@id/btnVoltar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Botão Voltar -->
+    <Button
+        android:id="@+id/btnVoltar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/voltar"
+        app:layout_constraintBottom_toTopOf="@id/txtMarcaRodape"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Rodapé Saber Mais -->
+    <TextView
+        android:id="@+id/txtMarcaRodape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/marca_app"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

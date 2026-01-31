@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tema principal da aplicação -->
+    <style name="Theme.GerenciadorDespesas" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Cores principais -->
+        <item name="colorPrimary">@color/botao</item>
+        <item name="colorPrimaryVariant">@color/titulo</item>
+        <item name="colorOnPrimary">@color/botao_texto</item>
+
+        <item name="colorSecondary">@color/marca</item>
+        <item name="colorSecondaryVariant">@color/marca</item>
+        <item name="colorOnSecondary">@color/botao_texto</item>
+
+        <!-- Fundo da aplicação -->
+        <item name="android:windowBackground">@color/fundo_tela</item>
+
+        <!-- Texto padrão -->
+        <item name="android:textColorPrimary">@color/titulo</item>
+
+        <!-- Fonte padrão -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+</resources>

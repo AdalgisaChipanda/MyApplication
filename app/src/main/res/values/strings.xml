@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App -->
+    <string name="app_name">Gerenciador de Despesas</string>
+
+    <!-- Login -->
+    <string name="hint_nome">Digite seu nome</string>
+    <string name="hint_senha">Digite sua senha</string>
+    <string name="entrar">Entrar</string>
+
+    <!-- Lista -->
+    <string name="tela_lista_titulo">Lista de Despesas</string>
+    <string name="adicionar_despesa">Adicionar Despesa</string>
+    <string name="ver_grafico">Ver Gráfico</string>
+    <string name="voltar">Voltar</string>
+    <string name="voltar_dashboard">Voltar</string> <!-- Adicionado -->
+    <string name="total_mes">Total do mês: %1$.2f</string>
+
+    <!-- Add -->
+    <string name="add_titulo">Adicionar Despesa</string>
+    <string name="hint_descricao">Descrição da despesa</string>
+    <string name="hint_valor">Valor</string>
+    <string name="salvar">Salvar</string>
+
+    <!-- Gráfico -->
+    <string name="grafico_titulo">Gráfico de Despesas por Mês</string>
+    <string name="grafico_baixo">🟢 Baixo gasto (≤ 200)</string>
+    <string name="grafico_medio">🟡 Médio gasto (≤ 500)</string>
+    <string name="grafico_alto">🔴 Alto gasto (> 500)</string>
+
+    <!-- Marca -->
+    <string name="marca_app">Saber mais</string>
+
+    <!-- Rodapé -->
+    <string name="txtMarcaRodape">© 2025 - Gerenciador de Despesas</string>
+
+    <!-- SobreActivity -->
+    <string name="titulo_sobre">Sobre o Aplicativo</string>
+    <string name="info_app">
+        Gerenciador de Despesas
+        Versão 1.0
+
+        Este aplicativo foi criado para ajudar você a controlar gastos de forma simples, rápida e intuitiva.
+
+        Funcionalidades:
+        - Cadastro de despesas
+        - Filtros por mês
+        - Resumo mensal
+        - Gráficos
+        - Histórico completo
+        - Categorias personalizadas
+        - Persistência dos dados
+
+        Criado por: Adalgisa Chipanda
+        © 2025
+    </string>
+
+    <!-- Resumo Mensal -->
+    <string name="resumo_mensal_titulo">Resumo Mensal</string>
+    <string name="total_mes_default">Total do mês: 0.00</string>
+    <string name="maior_despesa_default">Maior despesa: 0.00</string>
+    <string name="menor_despesa_default">Menor despesa: 0.00</string>
+    <string name="categoria_mais_usada_default">Categoria mais usada: N/A</string>
+
+    <!-- Formatação -->
+    <string name="total_mes_format">Total do mês: %.2f</string>
+    <string name="maior_despesa_format">Maior despesa: %.2f</string>
+    <string name="menor_despesa_format">Menor despesa: %.2f</string>
+    <string name="categoria_mais_usada_format">Categoria mais usada: %1$s</string>
+
+    <!-- Histórico Completo -->
+    <string name="historico_titulo">Histórico Completo</string>
+    <string name="hint_buscar_despesa">Buscar despesa</string>
+    <string name="mes_todos">Todos</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_titulo">Dashboard</string>
+    <string name="btn_lista">Lista de Despesas</string>
+    <string name="btn_historico">Histórico Completo</string>
+    <string name="btn_resumo">Resumo Mensal</string>
+    <string name="btn_historico_completo">Histórico Completo</string>
+
+</resources>
