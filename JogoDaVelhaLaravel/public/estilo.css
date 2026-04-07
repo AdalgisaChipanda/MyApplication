@@ -1,0 +1,841 @@
+/* --- VARIÁVEIS E CONFIGURAÇÃO BASE --- */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+
+:root {
+    /* Paleta Light Florestal */
+    --forest-green: #2d6a4f;      /* Verde folha densa */
+    --leaf-light: #0c5332;       /* Verde broto */
+    --sky-clear: #4a88c2;        /* Azul céu clarinho */
+    --sky-deep: #4886e4;         /* Azul horizonte */
+    --stone-grey: #878a86;       /* Cinza chão de trilha */
+    --dirt-path: #39526b;        /* Branco levemente acinzentado */
+
+    /* Cores de Estado */
+    --primary: var(--forest-green);
+    --secondary: var(--sky-deep);
+    --accent: #d90429;           /* Vermelho fruta/bagas (para erros) */
+    --text-main: #1b4332;        /* Verde quase preto para leitura */
+    --text-dim: #555555;
+
+    --card-bg: rgba(255, 255, 255, 0.75); /* Vidro claro */
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --glow-primary: 0 8px 20px rgba(45, 106, 79, 0.15);
+
+
+    --cor-terra: #8d6e63;
+    --cor-grama: #4caf50;
+    --cor-folha: #2e7d32;
+    --cor-areia: #f5f5dc;
+    --cor-madeira: #5d4037;
+    --bg-light-floresta: rgba(240, 245, 240, 0.85);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Gradiente Vertical: Do céu (topo) para o chão (base) */
+    background: linear-gradient(180deg, var(--sky-clear) 0%, #e9ecef 60%, var(--stone-grey) 100%);
+    color: var(--text-main);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Container Principal para alinhar os dois lados */
+.topo-jogo {
+    display: flex;
+    justify-content: space-between; /* Manda um para cada ponta */
+    align-items: center; /* Alinha verticalmente ao centro */
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.5); /* Fundo sutil */
+    border-radius: 20px;
+}
+
+/* Estilização do Placar */
+.placar-container-terra {
+    display: flex;
+    align-items: center;
+}
+
+.placar-box {
+    display: flex;
+    align-items: center;
+    background: #efebe9; /* Cor de areia clara */
+    padding: 10px 25px;
+    border-radius: 50px; /* Estilo pílula */
+    border: 2px solid #8d6e63; /* Borda de madeira/terra */
+    box-shadow: 0 4px 0px #d7ccc8; /* Sombra sólida estilo "flat design" */
+}
+
+.placar-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.jogador-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #5d4037; /* Marrom madeira */
+    letter-spacing: 1px;
+}
+
+.score-numero {
+    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    color: #2e7d32; /* Verde floresta para os pontos */
+    line-height: 1;
+}
+
+.placar-vs {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #8d6e63;
+    padding: 0 10px;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* Efeito quando o placar muda (opcional) */
+.score-numero.animar {
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); color: #4caf50; }
+}
+
+/* Responsividade: em telas pequenas, coloca um embaixo do outro */
+@media (max-width: 768px) {
+    .topo-jogo {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+.jogadores-info {
+    display: flex;            /* Ativa o modo horizontal */
+    align-items: center;      /* Alinha os itens verticalmente ao centro */
+    justify-content: center;  /* Centraliza o conjunto no meio da tela */
+    gap: 20px;                /* Espaçamento entre os jogadores e o "VS" */
+    margin-bottom: 15px;
+}
+
+.jogador {
+    display: flex;
+    flex-direction: column;   /* Mantém o input e as vitórias um em cima do outro */
+    align-items: center;      /* Centraliza o conteúdo dentro de cada jogador */
+}
+
+.vs-divider {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.status-turno {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 50px;
+    border: 2px solid var(--leaf-light);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: float 4s ease-in-out infinite;
+}
+
+.status-turno span {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(-50%) translateY(0px); }
+    50% { transform: translateY(-50%) translateY(-15px); }
+}
+
+#vez-jogador {
+    font-size: 2.1rem;
+    color: var(--primary);
+    text-shadow: 0 0 15px var(--primary);
+    font-family: 'Orbitron';
+}
+
+
+/* --- SCROLLBAR OVERRIDE --- */
+.ranking-list::-webkit-scrollbar,
+.jogos-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ranking-list::-webkit-scrollbar-track,
+.jogos-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.ranking-list::-webkit-scrollbar-thumb,
+.jogos-list::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border-radius: 10px;
+}
+
+.ranking-list::-webkit-scrollbar-thumb:hover,
+.jogos-list::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* --- LAYOUT PRINCIPAL --- */
+header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto 0 auto;
+    padding: 0 20px 20px 20px;
+    padding-top: 35px;
+}
+
+/* --- PAINÉIS --- */
+.left-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.glass-card:hover {
+    box-shadow: 0 15px 40px rgba(45, 106, 79, 0.1);
+    transform: translateY(-3px);
+}
+
+/* Ajuste nos inputs para tema claro */
+input[type="text"] {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--stone-grey);
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+/* --- PROPORÇÕES DO PAINEL DIREITO --- */
+#ranking-section {
+    height: 390px;
+    overflow: auto;
+}
+
+#jogos-section {
+    height: calc(100vh - 490px); /* 75% de altura */
+    overflow: auto;
+}
+
+/* --- CUSTOMIZAÇÃO DA BARRA DE ROLAGEM --- */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
+
+/* --- LISTAGENS BONITAS --- */
+.ranking-list, .jogos-list {
+    list-style: none;
+    overflow-y: auto;
+    overflow-x: visible;
+    flex-grow: 1;
+    margin-top: 15px;
+    padding-right: 5px;
+}
+
+.ranking-list li, .jogos-list li {
+    background: rgba(218, 216, 219, 0.164);
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid transparent;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+}
+
+.ranking-list li.active, .jogos-list li.active {
+    background: rgba(255, 0, 85, 0.15);
+    border-left-color: var(--accent);
+}
+
+.ranking-list li:hover, .jogos-list li:hover {
+    background: rgba(112, 0, 255, 0.15);
+    border-left-color: var(--primary);
+}
+
+.ranking-list li .jogador-info, .jogos-list li .jogo-info {
+    width: 100%;
+}
+/* Seta com animação */
+.ranking-list li::after, .jogos-list li::after {
+    content: '→';
+    font-size: 1.2rem;
+    color: var(--primary);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: var(--transition);
+}
+
+.ranking-list li:hover::after, .jogos-list li:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- TABULEIRO --- */
+.tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    gap: 15px;
+    justify-content: center;
+    margin: auto;
+}
+
+.celula {
+    width: 110px;
+    height: 110px;
+    background: #ffffff;
+    border: 2px solid var(--sky-clear);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-family: 'Orbitron';
+    color: var(--forest-green); /* X e O em verde floresta */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: var(--transition);
+}
+
+.celula:hover {
+    background: var(--sky-clear);
+    border-color: var(--sky-deep);
+    transform: scale(1.05);
+}
+
+
+/* --- BOTÕES E INPUTS --- */
+.btn-primary {
+    background: linear-gradient(135deg, var(--forest-green), var(--leaf-light));
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-family: 'Orbitron';
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(45, 106, 79, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(45, 106, 79, 0.4);
+    filter: brightness(1.1);
+}
+
+input[type="text"] {
+    background: rgba(17, 124, 143, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgb(7, 77, 17);
+    padding: 10px;
+    border-radius: 6px;
+    font-family: 'Rajdhani';
+    width: 100%;
+    font-weight: bold;
+    transition: var(--transition);
+
+
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 992px) {
+    .container {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow-y: visible;
+    }
+
+    .right-panel {
+        height: auto;
+    }
+
+    #ranking-section, #jogos-section {
+        height: 400px; /* Altura fixa em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .tabuleiro {
+        grid-template-columns: repeat(3, 80px);
+    }
+    .celula {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+}
+
+
+
+.vencedor {
+    background: rgba(3, 224, 3, 0.301) !important;
+    border-left-color: #00ff00 !important;
+    color: #023502b0 !important;
+    padding: 1px 8px !important;
+    border-radius: 10px !important;
+}
+
+
+/* Replay */
+/* --- ESTILIZAÇÃO DO REPLAY --- */
+
+/* Ajuste para a margem que não existia no CSS puro */
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+#replay-section {
+    background: rgba(0, 0, 0, 0.2); /* Um pouco mais escuro que o resto */
+    border: 1px dashed rgba(0, 242, 255, 0.3); /* Borda tracejada estilo blueprint */
+}
+
+#replay-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#replay-controls button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    float: left !important;
+}
+
+#replay-controls button:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px var(--secondary);
+}
+
+/* O TABULEIRO MINI */
+.tabuleiro-mini {
+    display: grid;
+    grid-template-columns: repeat(3, 50px); /* Tamanho bem menor */
+    gap: 8px;
+    justify-content: center;
+    padding: 15px;
+    background: rgba(31, 30, 30, 0.3);
+    border-radius: 12px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.celula-mini {
+    width: 50px;
+    height: 50px;
+    background: rgba(2, 89, 104, 0.466);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--text-dim);
+}
+
+/* Efeito de brilho especial para o botão de "Play" */
+.btn-glow {
+    background: rgba(0, 242, 255, 0.1) !important;
+    border-color: var(--primary) !important;
+    animation: pulse-blue 2s infinite;
+}
+
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 242, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
+}
+
+/* Estilo para quando a célula mini estiver preenchida */
+.celula-mini:not(:empty) {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary);
+}
+
+/* Container que coloca controles e tabuleiro lado a lado */
+.replay-wrapper {
+    display: flex;
+    align-items: center; /* Alinha verticalmente ao centro */
+    justify-content: center; /* Centraliza o conjunto no card */
+    gap: 30px; /* Espaço entre controles e tabuleiro */
+    margin-top: 15px;
+}
+
+#replay-controls {
+    display: flex;
+    flex-direction: column; /* Coloca os botões um em cima do outro */
+    gap: 10px;
+}
+
+#replay-controls button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha ícone e texto à esquerda */
+    gap: 10px;
+    width: 120px; /* Largura fixa para os botões ficarem iguais */
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Removido o float:left que quebrava o layout */
+}
+
+#replay-controls button small {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#replay-controls button span {
+    font-size: 1.1rem;
+}
+
+/* O TABULEIRO MINI (Removido o margin: 0 auto para não brigar com o flex) */
+.tabuleiro-mini {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    gap: 8px;
+    padding: 15px;
+    background: rgba(71, 95, 110, 0.3);
+    border-radius: 12px;
+    width: fit-content;
+}
+
+/* Efeito Hover nos botões */
+#replay-controls button:hover {
+    background: rgba(0, 242, 255, 0.2);
+    border-color: #00f2ff;
+    transform: translateX(5px); /* Move levemente para a direita no hover */
+}
+
+/* Container de Informações à Direita */
+.replay-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 140px;
+    text-align: center;
+}
+
+.info-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 242, 255, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-box .label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: var(--primary); /* Ou a cor ciano que você está usando */
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.info-box .valor {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.info-box small {
+    font-size: 0.6rem;
+    opacity: 0.6;
+}
+
+/* Estilo para o Vencedor/Empate */
+.valor-resultado {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 242, 255, 0.5);
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Se for "Empate", você pode mudar a cor via JS ou classe */
+.resultado-empate {
+    color: #ffcc00 !important;
+}
+
+.resultado-vitoria {
+    color: #00ff88 !important;
+    text-transform: uppercase;
+}
+
+/* Ajuste no wrapper para garantir que tudo caiba bem em telas menores */
+@media (max-width: 600px) {
+    .replay-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #replay-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .replay-info {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+
+
+.info-box-terra {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 15px;
+    border-left: 6px solid var(--cor-grama);
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.label-terra {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--cor-terra);
+    font-weight: 800;
+}
+
+.valor-grande {
+    font-size: 2.5rem; /* Bem grande como pedido */
+    font-family: 'Poppins', sans-serif;
+    color: var(--cor-madeira);
+    margin: 5px 0;
+    font-weight: 900;
+}
+
+.divisor {
+    color: var(--cor-grama);
+    font-size: 1.5rem;
+    margin: 0 5px;
+}
+
+.sub-label {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.resultado-destaque {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cor-folha);
+    margin-top: 10px;
+}
+
+/* Cores dinâmicas para o resultado */
+.vitoria-texto { color: #2e7d32; }
+.empate-texto { color: #f57c00; }
+
+
+/* ###############################*/
+/* ###############################*/
+/* ###############################*/
+
+
+/* Overlay que escurece e desfoca o fundo */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px); /* Efeito de desfoque no fundo */
+    display: none; /* Escondido por padrão */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Base para ambos os modais */
+.modal-content {
+    background: rgba(5, 10, 15, 0.95);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 50px rgba(0, 255, 170, 0.15);
+}
+
+/* Quando o modal aparece, ele cresce */
+.modal-overlay.active {
+    display: flex;
+}
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+#modal-titulo {
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+#modal-mensagem {
+    color: #ccc;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Botão Continuar */
+#btn-continuar {
+    background: var(--primary, #00f2ff);
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+#btn-continuar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--primary, #00f2ff);
+}
+
+
+
+/* Customização para o de ERRO */
+.error-card {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 50px rgba(255, 62, 62, 0.2) !important;
+}
+.error-card #modal-erro-titulo {
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(255, 62, 62, 0.5);
+}
+
+/* Animação de tremor quando o erro aparece */
+.modal-overlay.active .error-card {
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-5px); }
+}
+
+
+
+/* Botão de erro customizado */
+.btn-error {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Orbitron';
+    transition: var(--transition);
+}
+
+.btn-error:hover {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 0 20px var(--accent);
+}
+
+
