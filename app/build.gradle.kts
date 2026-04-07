@@ -33,14 +33,15 @@ android {
 }
 
 dependencies {
-    // Bibliotecas principais usando version catalog
+    // Bibliotecas base
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-
-    // Gson usando version catalog
     implementation(libs.gson)
+
+    // Biblioteca do Gráfico corrigida
+    implementation(libs.mikephil)
 
     // Testes
     testImplementation(libs.junit)

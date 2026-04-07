@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +30,7 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        // Inicialização dos componentes
         EditText edtDescricao = findViewById(R.id.edtDescricao);
         EditText edtValor = findViewById(R.id.edtValor);
         Spinner spinnerMes = findViewById(R.id.spinnerMes);
@@ -36,25 +38,31 @@ public class AddActivity extends AppCompatActivity {
         Button btnVoltar = findViewById(R.id.btnVoltarAdd);
         TextView txtSaberMais = findViewById(R.id.txtSaberMaisAdd);
 
-        // Spinner com meses
+        // Configuração do Spinner (Removido "Todos os meses" para evitar erro no gráfico)
         ArrayList<String> meses = new ArrayList<>(Arrays.asList(
-                getString(R.string.mes_todos),
-                "Janeiro","Fevereiro","Março","Abril",
-                "Maio","Junho","Julho","Agosto",
-                "Setembro","Outubro","Novembro","Dezembro"
+                "Janeiro", "Fevereiro", "Março", "Abril",
+                "Maio", "Junho", "Julho", "Agosto",
+                "Setembro", "Outubro", "Novembro", "Dezembro"
         ));
+
         ArrayAdapter<String> adapterMes = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, meses);
         adapterMes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMes.setAdapter(adapterMes);
 
-        // Salvar despesa
+        // Lógica para Salvar
         btnSalvar.setOnClickListener(v -> {
             String descricao = edtDescricao.getText().toString().trim();
-            String valor = edtValor.getText().toString().trim();
-            String mes = spinnerMes.getSelectedItem().toString();
+            String valorStr = edtValor.getText().toString().trim();
+            String mesSelecionado = spinnerMes.getSelectedItem().toString();
 
-            if (!descricao.isEmpty() && !valor.isEmpty()) {
+            if (descricao.isEmpty() || valorStr.isEmpty()) {
+                Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
+                // SharedPreferences e Gson para persistência
                 SharedPreferences prefs = getSharedPreferences(PREFS_DESPESAS, Context.MODE_PRIVATE);
                 Gson gson = new Gson();
                 Type type = new TypeToken<ArrayList<String>>() {}.getType();
@@ -62,13 +70,19 @@ public class AddActivity extends AppCompatActivity {
                 String json = prefs.getString(KEY_DESPESAS, "[]");
                 ArrayList<String> todasDespesas = gson.fromJson(json, type);
 
-                String item = mes + " - " + descricao + " : " + valor;
+                // Salvando no formato que seu app consome
+                // DICA: O gráfico usará o 'mesSelecionado' para agrupar os valores
+                String item = mesSelecionado + " - " + descricao + " : " + valorStr;
                 todasDespesas.add(item);
 
                 prefs.edit().putString(KEY_DESPESAS, gson.toJson(todasDespesas)).apply();
 
+                Toast.makeText(this, "Despesa salva com sucesso!", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK);
                 finish();
+
+            } catch (Exception e) {
+                Toast.makeText(this, "Erro ao salvar dados.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -78,7 +92,7 @@ public class AddActivity extends AppCompatActivity {
             finish();
         });
 
-        // Saber mais → SobreActivity
+        // Link para tela Sobre
         txtSaberMais.setOnClickListener(v ->
                 startActivity(new Intent(AddActivity.this, SobreActivity.class))
         );

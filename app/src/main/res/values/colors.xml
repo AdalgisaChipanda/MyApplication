@@ -1,31 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Fundo da tela -->
-    <color name="fundo_tela">#FAFAFA</color>
+    <color name="primary">#4F46E5</color>         <color name="primary_dark">#3730A3</color>    <color name="secondary">#10B981</color>       <color name="bg_app">#F1F5F9</color>          <color name="surface">#FFFFFF</color>         <color name="text_title">#0F172A</color>      <color name="text_body">#475569</color>       <color name="text_sub">#94A3B8</color>        <color name="text_on_primary">#FFFFFF</color> <color name="success">#10B981</color>         <color name="warning">#F59E0B</color>         <color name="danger">#EF4444</color>          <color name="grafico_baixo">#10B981</color>
+    <color name="grafico_medio">#F59E0B</color>
+    <color name="grafico_alto">#EF4444</color>
 
-    <!-- Botões -->
-    <color name="botao">#FF7043</color>             <!-- Usado nos layouts -->
-    <color name="botao_primario">#FF7043</color>    <!-- Mesma cor, alias -->
-    <color name="botao_secundario">#BDBDBD</color>
-    <color name="botao_texto">#FFFFFF</color>
-
-    <!-- Títulos e textos -->
-    <color name="titulo">#212121</color>
-    <color name="texto_secundario">#757575</color>
-
-    <!-- Campos de input / Spinner -->
-    <color name="input_fundo">#FFFFFF</color>
-    <color name="input_borda">#FF7043</color>
-
-    <!-- Cores do gráfico -->
-    <color name="grafico_baixo">#4CAF50</color>
-    <color name="grafico_medio">#FFC107</color>
-    <color name="grafico_alto">#F44336</color>
-
-    <!-- Divisores / separadores -->
-    <color name="divisor">#BDBDBD</color>
-
-    <!-- Marca / autora -->
-    <color name="marca">#9E9E9E</color>
-</resources>
+    <color name="border_color">#E2E8F0</color>    </resources>
 

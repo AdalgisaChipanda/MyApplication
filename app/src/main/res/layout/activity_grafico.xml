@@ -2,71 +2,111 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="20dp"
+    android:background="#F1F5F9"
+    tools:context=".GraficoActivity">
 
-    <!-- Título do gráfico -->
     <TextView
-        android:id="@+id/graficoTitulo"
-        android:layout_width="0dp"
+        android:id="@+id/tituloGrafico"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/grafico_titulo"
+        android:text="@string/titulo_balanco_anual"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:gravity="center"
+        android:textColor="#1E293B"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
-    <!-- Container das barras -->
     <LinearLayout
         android:id="@+id/barChartContainer"
         android:layout_width="0dp"
         android:layout_height="300dp"
-        android:orientation="horizontal"
         android:gravity="bottom"
-        app:layout_constraintTop_toBottomOf="@id/graficoTitulo"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tituloGrafico"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Container da legenda -->
+    <View
+        android:id="@+id/divisorGrafico"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#CBD5E1"
+        app:layout_constraintTop_toBottomOf="@id/barChartContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <LinearLayout
         android:id="@+id/legendaContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/barChartContainer"
+        android:paddingTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/divisorGrafico"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botão Voltar -->
+    <LinearLayout
+        android:id="@+id/containerLegendaCores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/legendaContainer"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/grafico_baixo"
+            android:textSize="12sp"
+            android:textColor="#64748B" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/grafico_medio"
+            android:textSize="12sp"
+            android:textColor="#64748B" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/grafico_alto"
+            android:textSize="12sp"
+            android:textColor="#64748B" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/btnVoltarGrafico"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/voltar"
-        app:layout_constraintTop_toBottomOf="@id/legendaContainer"
+        android:layout_height="55dp"
+        android:text="@string/btn_voltar"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="#4F46E5"
+        app:cornerRadius="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@id/txtMarca"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Rodapé "Saber mais" -->
     <TextView
         android:id="@+id/txtMarca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/marca_app"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="16sp"
-        android:clickable="true"
-        android:focusable="true"
+        android:text="@string/saber_mais_app"
+        android:textColor="#94A3B8"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12dp"/>
+        android:layout_marginBottom="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

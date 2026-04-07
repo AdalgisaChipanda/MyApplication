@@ -4,92 +4,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="#F5F7FA"
+    android:padding="24dp">
 
-    <!-- Título -->
     <TextView
-        android:id="@+id/addTitulo"
-        android:layout_width="0dp"
+        android:id="@+id/txtAddTitulo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_titulo"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
+        android:textSize="26sp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="#1A1C1E"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Descrição da despesa -->
-    <EditText
-        android:id="@+id/edtDescricao"
-        android:layout_width="0dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutDesc"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:hint="@string/hint_descricao"
-        android:inputType="text"
-        android:autofillHints="none"
-        app:layout_constraintTop_toBottomOf="@id/addTitulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintTop_toBottomOf="@id/txtAddTitulo">
 
-    <!-- Valor da despesa -->
-    <EditText
-        android:id="@+id/edtValor"
-        android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutValor"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:hint="@string/hint_valor"
-        android:inputType="numberDecimal"
-        android:autofillHints="none"
-        app:layout_constraintTop_toBottomOf="@id/edtDescricao"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintTop_toBottomOf="@id/layoutDesc">
 
-    <!-- Spinner meses -->
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/lblMes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_selecione_mes"
+        android:layout_marginTop="16dp"
+        android:textColor="#424242"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/layoutValor"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Spinner
         android:id="@+id/spinnerMes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/edtValor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/btn_dropdown"
+        app:layout_constraintTop_toBottomOf="@id/lblMes" />
 
-    <!-- Botão Salvar -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSalvar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
         android:text="@string/salvar"
-        app:layout_constraintTop_toBottomOf="@id/spinnerMes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:cornerRadius="12dp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerMes" />
 
-    <!-- Botão Voltar -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnVoltarAdd"
-        android:layout_width="0dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/voltar"
-        app:layout_constraintTop_toBottomOf="@id/btnSalvar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:text="@string/btn_voltar"
+        app:layout_constraintTop_toBottomOf="@id/btnSalvar" />
 
-    <!-- Saber Mais (Rodapé) -->
     <TextView
         android:id="@+id/txtSaberMaisAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/marca_app"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="16sp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@id/btnVoltarAdd"
+        android:textColor="#3F51B5"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

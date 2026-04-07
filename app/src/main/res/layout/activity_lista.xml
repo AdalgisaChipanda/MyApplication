@@ -4,104 +4,110 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F7FA"
     android:padding="16dp">
 
-    <!-- Título -->
     <TextView
-        android:id="@+id/listaTitulo"
-        android:layout_width="0dp"
+        android:id="@+id/txtListaTitulo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tela_lista_titulo"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
+        android:fontFamily="sans-serif-black"
+        android:textColor="#1A1C1E"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Spinner meses -->
     <Spinner
         android:id="@+id/spinnerMesLista"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/listaTitulo"
+        android:background="@android:drawable/btn_dropdown"
+        app:layout_constraintTop_toBottomOf="@id/txtListaTitulo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ListView limitada para não sobrepor os botões -->
     <ListView
         android:id="@+id/listViewDespesas"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:dividerHeight="1dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
         app:layout_constraintTop_toBottomOf="@id/spinnerMesLista"
-        app:layout_constraintBottom_toTopOf="@id/btnAdicionarDespesa"
+        app:layout_constraintBottom_toTopOf="@id/cardTotal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Total do mês -->
-    <TextView
-        android:id="@+id/txtTotalMes"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardTotal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/total_mes_default"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
         app:layout_constraintBottom_toTopOf="@id/btnAdicionarDespesa"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="12dp">
 
-    <!-- Botão Adicionar Despesa -->
-    <Button
+        <TextView
+            android:id="@+id/txtTotalMes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/total_mes_default"
+            android:textColor="#1A1C1E"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAdicionarDespesa"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
         android:text="@string/adicionar_despesa"
-        app:layout_constraintBottom_toTopOf="@id/btnVerGrafico"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="8dp"/>
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutAcoesSecundarias"
+        android:layout_marginBottom="8dp" />
 
-    <!-- Botão Ver Gráfico -->
-    <Button
-        android:id="@+id/btnVerGrafico"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/layoutAcoesSecundarias"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ver_grafico"
-        app:layout_constraintBottom_toTopOf="@id/btnVoltar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="8dp"/>
-
-    <!-- Botão Voltar -->
-    <Button
-        android:id="@+id/btnVoltar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/voltar"
+        android:orientation="horizontal"
+        android:weightSum="2"
         app:layout_constraintBottom_toTopOf="@id/txtMarcaRodape"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp">
 
-    <!-- Rodapé Saber Mais -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerGrafico"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:text="@string/ver_grafico" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVoltar"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/voltar" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/txtMarcaRodape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/marca_app"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="16sp"
-        android:clickable="true"
-        android:focusable="true"
+        android:text="@string/saber_mais_app"
+        android:textColor="#3F51B5"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

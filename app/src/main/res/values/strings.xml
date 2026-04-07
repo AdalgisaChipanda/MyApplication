@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- App -->
     <string name="app_name">Gerenciador de Despesas</string>
 
     <!-- Login -->
@@ -9,76 +8,83 @@
     <string name="hint_senha">Digite sua senha</string>
     <string name="entrar">Entrar</string>
 
-    <!-- Lista -->
+    <!-- Dashboard -->
+    <string name="dashboard_titulo">Dashboard</string>
+    <string name="boas_vindas">Olá, %1$s</string>
+    <string name="btn_lista">Lista de Despesas</string>
+    <string name="btn_historico">Histórico Completo</string>
+    <string name="btn_resumo">Resumo Mensal</string>
+    <string name="ver_grafico">Ver Gráfico</string>
+    <string name="voltar">Sair</string>
+
+    <!-- Lista de Despesas -->
     <string name="tela_lista_titulo">Lista de Despesas</string>
     <string name="adicionar_despesa">Adicionar Despesa</string>
-    <string name="ver_grafico">Ver Gráfico</string>
-    <string name="voltar">Voltar</string>
-    <string name="voltar_dashboard">Voltar</string> <!-- Adicionado -->
+    <string name="voltar_dashboard">Voltar</string>
     <string name="total_mes">Total do mês: %1$.2f</string>
+    <string name="total_mes_default">Total do mês: 0.00</string>
+    <string name="marca_app">MeuApp © 2026</string> <!-- Adicionado -->
 
-    <!-- Add -->
+    <!-- Adicionar Despesa -->
     <string name="add_titulo">Adicionar Despesa</string>
     <string name="hint_descricao">Descrição da despesa</string>
     <string name="hint_valor">Valor</string>
+    <string name="label_selecione_mes">Selecione o Mês:</string>
     <string name="salvar">Salvar</string>
 
-    <!-- Gráfico -->
-    <string name="grafico_titulo">Gráfico de Despesas por Mês</string>
+    <!-- Balanço Anual / Gráficos -->
+    <string name="titulo_balanco_anual">Balanço Anual</string>
+    <string name="grafico_subtitulo">Gráfico de Despesas por Mês</string>
     <string name="grafico_baixo">🟢 Baixo gasto (≤ 200)</string>
     <string name="grafico_medio">🟡 Médio gasto (≤ 500)</string>
     <string name="grafico_alto">🔴 Alto gasto (> 500)</string>
 
-    <!-- Marca -->
-    <string name="marca_app">Saber mais</string>
-
-    <!-- Rodapé -->
-    <string name="txtMarcaRodape">© 2025 - Gerenciador de Despesas</string>
-
-    <!-- SobreActivity -->
-    <string name="titulo_sobre">Sobre o Aplicativo</string>
-    <string name="info_app">
-        Gerenciador de Despesas
-        Versão 1.0
-
-        Este aplicativo foi criado para ajudar você a controlar gastos de forma simples, rápida e intuitiva.
-
-        Funcionalidades:
-        - Cadastro de despesas
-        - Filtros por mês
-        - Resumo mensal
-        - Gráficos
-        - Histórico completo
-        - Categorias personalizadas
-        - Persistência dos dados
-
-        Criado por: Adalgisa Chipanda
-        © 2025
-    </string>
-
     <!-- Resumo Mensal -->
     <string name="resumo_mensal_titulo">Resumo Mensal</string>
-    <string name="total_mes_default">Total do mês: 0.00</string>
+    <string name="area_grafico">Área do Gráfico</string>
+    <string name="titulo_resumo_financeiro">Resumo Financeiro</string>
+    <string name="total_inicial_kz">Total: 0.00 KZ</string>
+    <string name="maior_inicial_kz">Maior: 0.00 KZ</string>
+    <string name="menor_inicial_kz">Menor: 0.00 KZ</string>
+    <string name="btn_voltar_inicio">Voltar ao Início</string>
+    <string name="label_filtro_mes">Selecione o mês para filtrar:</string>
+    <string name="label_gastos_categoria">Gastos por Categoria</string>
+
     <string name="maior_despesa_default">Maior despesa: 0.00</string>
     <string name="menor_despesa_default">Menor despesa: 0.00</string>
     <string name="categoria_mais_usada_default">Categoria mais usada: N/A</string>
+    <string name="total_mes_format">Total do mês: %.2f KZ</string>
+    <string name="maior_despesa_format">Maior despesa: %.2f KZ</string>
+    <string name="menor_despesa_format">Menor despesa: %.2f KZ</string>
+    <string name="categoria_mais_usada_format">Categoria: %1$s</string>
 
-    <!-- Formatação -->
-    <string name="total_mes_format">Total do mês: %.2f</string>
-    <string name="maior_despesa_format">Maior despesa: %.2f</string>
-    <string name="menor_despesa_format">Menor despesa: %.2f</string>
-    <string name="categoria_mais_usada_format">Categoria mais usada: %1$s</string>
-
-    <!-- Histórico Completo -->
+    <!-- Histórico -->
     <string name="historico_titulo">Histórico Completo</string>
+    <string name="titulo_historico">Histórico Completo</string>
     <string name="hint_buscar_despesa">Buscar despesa</string>
-    <string name="mes_todos">Todos</string>
+    <string name="hint_buscar">Procurar despesa…</string>
+    <string name="mes_todos">Todos os meses</string>
+    <string name="btn_voltar">Voltar</string>
 
-    <!-- Dashboard -->
-    <string name="dashboard_titulo">Dashboard</string>
-    <string name="btn_lista">Lista de Despesas</string>
-    <string name="btn_historico">Histórico Completo</string>
-    <string name="btn_resumo">Resumo Mensal</string>
-    <string name="btn_historico_completo">Histórico Completo</string>
+    <!-- Saber mais -->
+    <string name="saber_mais_app">Saber mais</string>
+
+    <!-- Tela Sobre -->
+    <string name="titulo_sobre">Sobre o Aplicativo</string>
+    <string name="nome_app_sobre">Gestão de Finanças</string>
+    <string name="versao_app">Versão 1.0.0</string>
+    <string name="descricao_app_sobre">Este aplicativo foi desenvolvido para ajudar no controle de gastos diários e mensais.</string>
+    <string name="desc_logo_app">Logótipo do Aplicativo</string>
+    <string name="btn_fechar">Fechar</string>
+
+    <string name="info_app">
+        Gerenciador de Despesas\nVersão 1.0\n\n
+        Este aplicativo ajuda você a controlar gastos de forma simples.\n\n
+        Criado por: Adalgisa Chipanda\n© 2026
+    </string>
+
+    <!-- Correções -->
+    <string name="despesa_exemplo">Despesa Exemplo</string>
+    <string name="desc_excluir">Excluir</string>
 
 </resources>

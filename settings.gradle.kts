@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage") // Adicione esta linha no topo para esconder os avisos de @Incubating
+
 pluginManagement {
     repositories {
         google {
@@ -11,11 +13,14 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
+        // Repositório necessário para o gráfico
+        maven { url = uri("https://jitpack.io") }
     }
 }
 

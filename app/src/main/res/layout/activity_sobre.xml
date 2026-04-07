@@ -4,54 +4,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@color/fundo_tela">
+    android:background="#FFFFFF"
+    android:padding="24dp">
 
-    <!-- Título -->
+    <ImageView
+        android:id="@+id/imgLogoSobre"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="@string/desc_logo_app"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txtTituloSobre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/titulo_sobre"
-        android:textColor="@color/titulo"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Conteúdo do aplicativo -->
-    <ScrollView
-        android:id="@+id/scrollSobre"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/txtTituloSobre"
-        app:layout_constraintBottom_toTopOf="@id/btnVoltarSobre"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/nome_app_sobre"
+        android:textColor="#1A1C1E"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgLogoSobre" />
 
-        <TextView
-            android:id="@+id/txtInfoApp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/info_app"
-            android:textSize="18sp"
-            android:textColor="@color/titulo"
-            android:lineSpacingExtra="4dp"/>
-    </ScrollView>
-
-    <!-- Botão Voltar -->
-    <Button
-        android:id="@+id/btnVoltarSobre"
+    <TextView
+        android:id="@+id/txtDescricaoSobre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/voltar"
-        android:backgroundTint="@color/botao_secundario"
-        android:textColor="@color/botao_texto"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:text="@string/descricao_app_sobre"
+        android:textAlignment="center"
+        android:textColor="#424242"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/txtTituloSobre" />
+
+    <TextView
+        android:id="@+id/txtCreditosSobre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textAlignment="center"
+        android:textColor="#9E9E9E"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDescricaoSobre" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVoltarSobre"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_fechar"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

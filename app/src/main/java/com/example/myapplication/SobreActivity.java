@@ -1,10 +1,9 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.button.MaterialButton;
 
 public class SobreActivity extends AppCompatActivity {
 
@@ -13,12 +12,18 @@ public class SobreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sobre);
 
-        TextView txtInfo = findViewById(R.id.txtInfoApp);
-        Button btnVoltar = findViewById(R.id.btnVoltarSobre);
+        // IDs atualizados para coincidir com o XML abaixo
+        TextView txtInfo = findViewById(R.id.txtCreditosSobre);
+        MaterialButton btnVoltar = findViewById(R.id.btnVoltarSobre);
 
-        // Usa string de recurso, sem warning e pronto para tradução
-        txtInfo.setText(getString(R.string.info_app));
+        // Configura o texto informativo vindo do strings.xml
+        if (txtInfo != null) {
+            txtInfo.setText(getString(R.string.info_app));
+        }
 
-        btnVoltar.setOnClickListener(v -> finish());
+        // Fecha a tela ao clicar em voltar
+        if (btnVoltar != null) {
+            btnVoltar.setOnClickListener(v -> finish());
+        }
     }
 }

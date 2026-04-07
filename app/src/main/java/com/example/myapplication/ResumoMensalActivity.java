@@ -1,14 +1,24 @@
 package com.example.myapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -22,92 +32,142 @@ public class ResumoMensalActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "MinhasDespesasPrefs";
     private static final String KEY_DESPESAS = "despesas";
+    private static final String TAG = "ResumoMensal";
 
-    private TextView txtTotalMes;
-    private TextView txtMaiorDespesa;
-    private TextView txtMenorDespesa;
-    private TextView txtCategoriaMaisUsada;
+    private TextView txtTotalMes, txtMaiorDespesa, txtMenorDespesa;
+    private BarChart barChart;
+    private Spinner spinnerFiltroMes;
+
+    private final String[] mesesLista = {
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumo_mensal);
 
+        // 1. Inicializar componentes da tela
         txtTotalMes = findViewById(R.id.txtTotalMesResumo);
         txtMaiorDespesa = findViewById(R.id.txtMaiorDespesa);
         txtMenorDespesa = findViewById(R.id.txtMenorDespesa);
-        txtCategoriaMaisUsada = findViewById(R.id.txtCategoriaMaisUsada);
+        barChart = findViewById(R.id.barChart);
+        spinnerFiltroMes = findViewById(R.id.spinnerFiltroMes);
 
-        // Carregar resumo das despesas
-        carregarResumo();
+        // 2. Configurar o Spinner de meses
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, mesesLista);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFiltroMes.setAdapter(adapter);
 
-        // Botão Voltar
-        Button btnVoltar = findViewById(R.id.btnVoltarResumo);
-        btnVoltar.setOnClickListener(v -> finish()); // volta para a tela anterior
+        // 3. Listener para quando o usuário mudar o mês
+        spinnerFiltroMes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                carregarDadosPorMes(mesesLista[position]);
+            }
 
-        // Saber mais
-        TextView txtSaberMais = findViewById(R.id.txtMarcaRodapeResumo);
-        txtSaberMais.setOnClickListener(v ->
-                startActivity(new Intent(ResumoMensalActivity.this, SobreActivity.class))
-        );
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // 4. Botão Voltar
+        findViewById(R.id.btnVoltarResumo).setOnClickListener(v -> finish());
     }
 
-    private void carregarResumo() {
+    private void carregarDadosPorMes(String mesFiltro) {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String json = prefs.getString(KEY_DESPESAS, null);
-        ArrayList<String> todasDespesas = new ArrayList<>();
+        String json = prefs.getString(KEY_DESPESAS, "[]");
 
-        if (json != null) {
-            Gson gson = new Gson();
-            Type type = new TypeToken<ArrayList<String>>() {}.getType();
-            todasDespesas = gson.fromJson(json, type);
-        }
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        ArrayList<String> todasDespesas = gson.fromJson(json, type);
 
-        if (todasDespesas.isEmpty()) {
-            txtTotalMes.setText(getString(R.string.total_mes_default));
-            txtMaiorDespesa.setText(getString(R.string.maior_despesa_default));
-            txtMenorDespesa.setText(getString(R.string.menor_despesa_default));
-            txtCategoriaMaisUsada.setText(getString(R.string.categoria_mais_usada_default));
-            return;
-        }
-
-        double total = 0.0;
-        double maior = Double.MIN_VALUE;
+        double totalMes = 0.0;
+        double maior = 0.0;
         double menor = Double.MAX_VALUE;
-        HashMap<String, Integer> categorias = new HashMap<>();
+        HashMap<String, Double> gastosPorCategoria = new HashMap<>();
 
-        for (String d : todasDespesas) {
-            try {
-                String[] partes = d.split(" - ");
-                String categoria = partes[1].split(":")[0].trim();
-                double valor = Double.parseDouble(partes[1].split(":")[1].trim());
+        if (todasDespesas != null) {
+            for (String d : todasDespesas) {
+                try {
+                    // Esperado: "Janeiro - Alimentação : 1500.0"
+                    String[] partes = d.split(" - ");
+                    if (partes.length < 2) continue;
 
-                total += valor;
-                if (valor > maior) maior = valor;
-                if (valor < menor) menor = valor;
+                    String mesData = partes[0].trim();
 
-                categorias.compute(categoria, (key, value) -> (value == null ? 0 : value) + 1);
-            } catch (Exception ignored) {}
-        }
+                    if (mesData.equalsIgnoreCase(mesFiltro)) {
+                        String[] categoriaEValor = partes[1].split(" : ");
+                        if (categoriaEValor.length < 2) continue;
 
-        String categoriaMaisUsada = "N/A";
-        int maxCount = 0;
-        for (Map.Entry<String, Integer> entry : categorias.entrySet()) {
-            if (entry.getValue() > maxCount) {
-                maxCount = entry.getValue();
-                categoriaMaisUsada = entry.getKey();
+                        String categoria = categoriaEValor[0].trim();
+                        double valor = Double.parseDouble(categoriaEValor[1].trim());
+
+                        totalMes += valor;
+                        if (valor > maior) maior = valor;
+                        if (valor < menor) menor = valor;
+
+                        // Soma o valor à categoria existente ou começa do zero
+                        Double valorExistente = gastosPorCategoria.get(categoria);
+                        gastosPorCategoria.put(categoria, (valorExistente == null ? 0.0 : valorExistente) + valor);
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Erro ao processar linha: " + d, e);
+                }
             }
         }
 
-        txtTotalMes.setText(String.format(Locale.getDefault(),
-                getString(R.string.total_mes_format), total));
-        txtMaiorDespesa.setText(String.format(Locale.getDefault(),
-                getString(R.string.maior_despesa_format), maior));
-        txtMenorDespesa.setText(String.format(Locale.getDefault(),
-                getString(R.string.menor_despesa_format), menor));
-        txtCategoriaMaisUsada.setText(String.format(
-                getString(R.string.categoria_mais_usada_format), categoriaMaisUsada));
+        // 5. Atualizar Interface (KZ)
+        txtTotalMes.setText(String.format(Locale.US, "Total: %.2f KZ", totalMes));
+        txtMaiorDespesa.setText(String.format(Locale.US, "Maior: %.2f KZ", maior));
+        txtMenorDespesa.setText(String.format(Locale.US, "Menor: %.2f KZ", (totalMes == 0 ? 0 : menor)));
+
+        atualizarGrafico(gastosPorCategoria);
+    }
+
+    private void atualizarGrafico(HashMap<String, Double> dados) {
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<>();
+
+        int index = 0;
+        for (Map.Entry<String, Double> entry : dados.entrySet()) {
+            entries.add(new BarEntry(index, entry.getValue().floatValue()));
+            labels.add(entry.getKey());
+            index++;
+        }
+
+        if (entries.isEmpty()) {
+            barChart.clear();
+            barChart.setNoDataText("Nenhuma despesa em " + spinnerFiltroMes.getSelectedItem().toString());
+            barChart.invalidate();
+            return;
+        }
+
+        // Configuração visual do conjunto de dados
+        BarDataSet dataSet = new BarDataSet(entries, "Despesas por Categoria (KZ)");
+        dataSet.setColor(Color.parseColor("#4F46E5")); // Azul Indigo
+        dataSet.setValueTextSize(12f);
+        dataSet.setValueTextColor(Color.BLACK);
+
+        BarData barData = new BarData(dataSet);
+        barChart.setData(barData);
+
+        // Configuração do Eixo X (Categorias embaixo)
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setDrawGridLines(false);
+        xAxis.setLabelCount(labels.size());
+
+        // Ajustes finos do gráfico
+        barChart.getDescription().setEnabled(false);
+        barChart.getLegend().setEnabled(false); // Esconde legenda repetitiva
+        barChart.animateY(1000); // Animação de subida
+        barChart.setFitBars(true);
+        barChart.invalidate(); // Refresh
     }
 }
-
 
