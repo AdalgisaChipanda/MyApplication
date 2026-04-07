@@ -1,3 +1,10 @@
+# Meus Projetos
+
+Repositório com todos os meus projetos de desenvolvimento, organizado por pasta. Aqui estão dois dos principais projetos:
+
+---<img width="1364" height="653" alt="Captura de tela 2026-04-07 170826" src="https://github.com/user-attachments/assets/736f5121-6ecc-458b-a8d6-f950dc80ea50" />
+
+
 # MyApplication
 Aplicativo de gerenciamento de despesas pessoais.  
 - Melhorias no layout das telas  
@@ -11,3 +18,20 @@ Aplicativo de gerenciamento de despesas pessoais.
 <img width="720" height="1612" alt="Screenshot_20260407-204453" src="https://github.com/user-attachments/assets/bcae64c3-ee25-4ef5-88c0-fea251b07310" />
 <img width="720" height="1612" alt="Screenshot_20260407-204417" src="https://github.com/user-attachments/assets/5b9c1575-ec38-42ab-ba3f-f4d8edc2cf1d" />
 <img width="720" height="1612" alt="Screenshot_20260407-204355" src="https://github.com/user-attachments/assets/2c8f0462-55e9-4dae-a6b5-9e308a434a0d" />
+**Localização da pasta no repositório:** `app/`
+
+---
+
+## JogoDaVelha (Laravel)
+Jogo da velha desenvolvido em Laravel.  
+- Backend em Laravel    
+- Funciona localmente via XAMPP / Laragon  
+- Linguagem: PHP  
+- Plataforma: Web
+
+**Localização da pasta no repositório:** `JogoDaVelhaLaravel/`
+<img width="1364" height="653" alt="Captura de tela 2026-04-07 170826" src="https://github.com/user-attachments/assets/3845a050-ed2c-4540-a697-9955cff158d7" />
+
+---
+
+**Observação:** Cada projeto está em sua própria pasta para manter a organização e facilitar o acesso aos códigos.
